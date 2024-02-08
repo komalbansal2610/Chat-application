@@ -1,0 +1,31 @@
+<div class="container">
+    <app-username (userNameEvent)="userNameUpdate($event)" *ngIf="!userName"></app-username>
+    <h1 class="chat">CHAT APP</h1>
+    <div class="chatbox">
+        <div class="chatbox__user-list">
+            <h1 class="uHead"> User List</h1>
+            <div class="chatbox__user-active" *ngFor="let user of users">
+                <div>{{user}}</div>
+            </div>
+            <div class="chatbox__user-active" *ngFor="let user of userList">
+                <div class="displayUsers">
+                    <div class="p" [ngClass]="{mine:user.mine}">{{user.user}}</div>
+                </div>
+            </div>
+        </div>
+        <div class="message-list">
+            <div class="chatbox__messages" *ngFor="let msg of messageList" [ngClass]="{mine:msg.mine}">
+                    <div class="message-box">
+                        <div class="name"><p class="user">{{msg.mine ? 'You' :msg.userName}}</p></div>
+                        <div class="message">{{msg.message}}</div>
+                        <div class="time"><p class="innerTime">{{msg.currentDateAndTime | date:"dd/MM/yyyy HH:mm a"}}</p></div>
+                    </div>
+            </div>
+        </div>
+    </div>
+
+    <div  id="select">
+        <input class="input" type="text" [(ngModel)]="message"  ngModel #msg="ngModel" required>
+        <button (click)="sendMessage()" [disabled]="msg.invalid"><i class="fa-solid fa-paper-plane icon"></i></button>
+    </div>
+</div>
